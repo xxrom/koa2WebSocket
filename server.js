@@ -24,17 +24,25 @@ const port = 4001;
 
 // This is what the socket.io syntax is like, we will work this later
 io.on('connection', (socket) => {
-  console.log('User connected')
+  console.log('User connected');
+  let currentColor = 'white';
+
+  const toggleColor = color => (color === 'white' ? 'red' : 'white');
 
   socket.on('disconnect', () => {
-    console.log('user disconnected')
+    console.log('user disconnected');
   });
 
-  socket.on('ferret', (name, fn) => { // получаем name и function, в которую передадим данные 'woot'
+  socket.on('toggle color', (name, fn) => {
+    // получаем name и function, в которую передадим данные currentColor
     console.log('enter ferret socket.on');
     console.log(`${name}`);
-    fn('red');
+
+    console.log(`currentColor ${currentColor}`);
+    currentColor = toggleColor(currentColor);
+    console.log(`currentColor ${currentColor}`);
+    fn(currentColor);
   });
-})
+});
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
