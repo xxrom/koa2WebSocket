@@ -23,12 +23,18 @@ const io = require('socket.io')(server);
 const port = 4001;
 
 // This is what the socket.io syntax is like, we will work this later
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   console.log('User connected')
 
   socket.on('disconnect', () => {
     console.log('user disconnected')
-  })
+  });
+
+  socket.on('ferret', (name, fn) => { // получаем name и function, в которую передадим данные 'woot'
+    console.log('enter ferret socket.on');
+    console.log(`${name}`);
+    fn('red');
+  });
 })
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
