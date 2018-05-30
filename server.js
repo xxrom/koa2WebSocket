@@ -21,11 +21,11 @@ const io = require('socket.io')(server);
 
 // our localhost port
 const port = 4001;
+let currentColor = 'white'; // color for everyone
 
 // This is what the socket.io syntax is like, we will work this later
 io.on('connection', (socket) => {
   console.log('User connected');
-  let currentColor = 'white';
 
   const toggleColor = color => (color === 'white' ? 'red' : 'white');
 
@@ -33,15 +33,24 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('toggle color', (name, fn) => {
-    // получаем name и function, в которую передадим данные currentColor
-    console.log('enter ferret socket.on');
-    console.log(`${name}`);
+  // socket.on('toggle color', (name, fn) => {
+  //   // получаем name и function, в которую передадим данные currentColor
+  //   console.log('enter ferret socket.on');
+  //   console.log(`${name}`);
 
-    console.log(`currentColor ${currentColor}`);
+  //   console.log(`currentColor ${currentColor}`);
+  //   currentColor = toggleColor(currentColor);
+  //   console.log(`currentColor ${currentColor}`);
+  //   fn(currentColor);
+  // });
+
+  socket.on('toggle color auto', () => {
+    // получаем name и function, в которую передадим данные currentColor
+    console.log('toggle color auto');
+    console.log(currentColor);
     currentColor = toggleColor(currentColor);
-    console.log(`currentColor ${currentColor}`);
-    fn(currentColor);
+    console.log(currentColor);
+    io.sockets.emit('toggle color auto', currentColor);
   });
 });
 
