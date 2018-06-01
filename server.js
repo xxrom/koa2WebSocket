@@ -1,13 +1,3 @@
-// const Koa = require('koa');
-// const app = new Koa();
-
-// app.use(async ctx => {
-//   ctx.body = 'Hello World';
-// });
-
-// console.log('started on 3000 port');
-// app.listen(3000);
-
 const koa = require('koa');
 const http = require('http');
 
@@ -33,24 +23,25 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  // socket.on('toggle color', (name, fn) => {
-  //   // получаем name и function, в которую передадим данные currentColor
-  //   console.log('enter ferret socket.on');
-  //   console.log(`${name}`);
-
-  //   console.log(`currentColor ${currentColor}`);
-  //   currentColor = toggleColor(currentColor);
-  //   console.log(`currentColor ${currentColor}`);
-  //   fn(currentColor);
-  // });
-
   socket.on('toggle color auto', () => {
     // получаем name и function, в которую передадим данные currentColor
     console.log('toggle color auto');
+
     console.log(currentColor);
     currentColor = toggleColor(currentColor);
     console.log(currentColor);
+
     io.sockets.emit('toggle color auto', currentColor);
+  });
+
+  socket.on('onPlayYouTube', () => {
+    console.log('onPlayYouTube');
+    io.sockets.emit('onPlayYouTube');
+  });
+
+  socket.on('onPauseYouTube', () => {
+    console.log('onPauseYouTube');
+    io.sockets.emit('onPauseYouTube');
   });
 });
 
