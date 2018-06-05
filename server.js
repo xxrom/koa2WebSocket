@@ -48,18 +48,19 @@ io.on('connection', (socket) => {
     console.log('youtubeEvent');
     console.log(data);
     console.log(time);
-    switch (data) {
-      case 1:
-        io.sockets.emit('youtubeStart');
-        break;
+    io.sockets.emit('changeState', data, time);
+    // switch (data) {
+    //   case 1:
+    //     io.sockets.emit('changeState', data);
+    //     break;
 
-      case 2:
-        io.sockets.emit('youtubePause');
-        break;
+    //   case 2:
+    //     io.sockets.emit('youtubePause');
+    //     break;
 
-      default:
-        break;
-    }
+    //   default:
+    //     break;
+    // }
   });
 });
 
