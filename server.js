@@ -43,6 +43,24 @@ io.on('connection', (socket) => {
     console.log('onPauseYouTube');
     io.sockets.emit('onPauseYouTube');
   });
+
+  socket.on('youtubeEvent', (data, time) => {
+    console.log('youtubeEvent');
+    console.log(data);
+    console.log(time);
+    switch (data) {
+      case 1:
+        io.sockets.emit('youtubeStart');
+        break;
+
+      case 2:
+        io.sockets.emit('youtubePause');
+        break;
+
+      default:
+        break;
+    }
+  });
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
