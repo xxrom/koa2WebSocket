@@ -34,33 +34,11 @@ io.on('connection', (socket) => {
     io.sockets.emit('toggle color auto', currentColor);
   });
 
-  socket.on('onPlayYouTube', () => {
-    console.log('onPlayYouTube');
-    io.sockets.emit('onPlayYouTube');
-  });
-
-  socket.on('onPauseYouTube', () => {
-    console.log('onPauseYouTube');
-    io.sockets.emit('onPauseYouTube');
-  });
-
   socket.on('youtubeEvent', (data, time) => {
     console.log('youtubeEvent');
     console.log(data);
     console.log(time);
-    io.sockets.emit('changeState', data, time);
-    // switch (data) {
-    //   case 1:
-    //     io.sockets.emit('changeState', data);
-    //     break;
-
-    //   case 2:
-    //     io.sockets.emit('youtubePause');
-    //     break;
-
-    //   default:
-    //     break;
-    // }
+    io.sockets.emit('changeState', data, +time + 0.1);
   });
 });
 
